@@ -44,7 +44,7 @@ using namespace std;
 
 int fetched_cpu_info;
 int number_of_cores, number_of_clusters;
-int is_defective[MAX_CORES];
+int cores[MAX_CORES];
 int core_cluster_map[MAX_CORES];
 map<int,vector<int>> cluster_core_map;
 
@@ -63,53 +63,6 @@ int get_number_of_clusters() {
         return ERR_CODE;
     }
     return number_of_clusters;
-}
-
-int get_defective_cores(int *defective_cores) {
-    if(init()) {
-        return ERR_CODE;
-    }
-    int count = 0;
-    for(int i = 0; i < number_of_cores; i++) {
-        if (is_defective[i]) {
-            defective_cores[count] = i;
-            count++;
-        }
-    }
-    return count;
-}
-
-int is_core_defective(int core) {
-    if(init()) {
-        return ERR_CODE;
-    }
-    if (core < 0 || core > number_of_cores - 1) {
-        ALOGE("Core %d does not exist", core);
-        return ERR_CODE;
-    }
-    return is_defective[core];
-}
-
-int get_defective_cores_within_cluster(int cluster, int *defective_cores) {
-    if(init()) {
-        return ERR_CODE;
-    }
-    int count = 0;
-    vector<int> cores_within_cluster;
-    if( cluster_core_map.find(cluster) != cluster_core_map.end() ) {
-        cores_within_cluster = cluster_core_map[cluster];
-    } else {
-        ALOGI("Cluster %d not found", cluster);
-        return ERR_CODE;
-    }
-    for(int i = 0; i < cores_within_cluster.size(); i++) {
-        int core = cores_within_cluster.at(i);
-        if (is_defective[core]) {
-            defective_cores[count] = core;
-            count++;
-        }
-    }
-    return count;
 }
 
 int get_cluster(int core) {
@@ -178,7 +131,7 @@ int get_cpu_info(){
                 }
                 while(getline(fin, line)) {
                     if(line.substr(0,4) == "none") {
-                        is_defective[core] = 1;
+                        cores[core] = 1;
                     }
                 }
                 fin.close();

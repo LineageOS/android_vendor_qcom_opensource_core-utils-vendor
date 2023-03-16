@@ -44,15 +44,6 @@ int get_cpu_info();
 //return total number of clusters
 int get_number_of_clusters();
 
-//return number and list of cores that are defective across clusters
-int get_defective_cores(int *defective_cores);
-
-//returns true if a core is defective; otherwise false
-int is_core_defective(int core);
-
-// return number and list of cores that are defective within given cluster
-int get_defective_cores_within_cluster(int cluster, int *defective_cores);
-
 //return cluster number to which the core belongs
 int get_cluster(int core);
 
