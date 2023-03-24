@@ -44,11 +44,14 @@ int get_cpu_info();
 //return total number of clusters
 int get_number_of_clusters();
 
+//return total number of cores
+int get_number_of_cores();
+
 //return cluster number to which the core belongs
 int get_cluster(int core);
 
 //return all the cores available
-int get_cores(int *cores);
+uint32_t get_cores();
 
 //return the cores available within given cluster
 int get_cores_within_cluster(int cluster, int *cores);

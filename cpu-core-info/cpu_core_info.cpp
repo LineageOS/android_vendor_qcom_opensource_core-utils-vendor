@@ -65,6 +65,13 @@ int get_number_of_clusters() {
     return number_of_clusters;
 }
 
+int get_number_of_cores() {
+    if(init()) {
+        return ERR_CODE;
+    }
+    return number_of_cores;
+}
+
 int get_cluster(int core) {
     if(init()) {
         return ERR_CODE;
@@ -76,15 +83,16 @@ int get_cluster(int core) {
     return core_cluster_map[core];
 }
 
-int get_cores(int *cores) {
+uint32_t get_cores() {
+    uint32_t core_info = 0;
     if(init()) {
         return ERR_CODE;
     }
     int i;
     for (i = 0; i < number_of_cores; i++) {
-        cores[i] = i;
+        core_info = (!cores[i] ? (core_info | (1 << i)) : core_info);
     }
-    return number_of_cores;
+    return core_info;
 }
 
 int get_cores_within_cluster(int cluster, int *cores) {
