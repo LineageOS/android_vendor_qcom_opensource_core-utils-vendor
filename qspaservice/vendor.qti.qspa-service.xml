@@ -3,7 +3,7 @@ SPDX-License-Identifier: BSD-3-Clause-Clear
 -->
 
 <manifest version="1.0" type="device">
-    <hal format="aidl" optional="true">
+    <hal format="aidl">
         <name>vendor.qti.hardware.qspa</name>
         <version>1</version>
         <interface>
