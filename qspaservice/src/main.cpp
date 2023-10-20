@@ -12,6 +12,7 @@ using aidl::vendor::qti::hardware::qspa::Qspa;
 using namespace std;
 
 int main(){
+    ABinderProcess_setThreadPoolMaxThreadCount(8);
     ABinderProcess_startThreadPool();
     std::shared_ptr<Qspa> qspa = ndk::SharedRefBase::make<Qspa>();
     const std::string qspaName = std::string() + Qspa::descriptor + "/default";
