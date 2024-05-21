@@ -181,9 +181,10 @@ ndk::ScopedAStatus Qspa::get_cpus_of_physical_clusters(int32_t in_physical_clust
     for (int i = 0; i < cpus; i++) {
         string cpu_cluster_map_path = "/sys/devices/system/cpu/cpu" + to_string(i) + "/topology/";
         struct stat sb;
-        string path1 = cpu_cluster_map_path.append("/physical_package_id");
-        string path2 = cpu_cluster_map_path.append("/cluster_id");
+        string path1 = cpu_cluster_map_path.append("/cluster_id");
+        string path2 = cpu_cluster_map_path.append("/physical_package_id");
         if (stat(path1.c_str(), &sb) == 0 && !(sb.st_mode & S_IFDIR)) {
+        ALOGI("cluster_id exists for cpu: %d", i);
             fstream fin;
             fin.open(path1, ios::in);
             string cid;
@@ -197,7 +198,6 @@ ndk::ScopedAStatus Qspa::get_cpus_of_physical_clusters(int32_t in_physical_clust
             }
         }
         else if (stat(path2.c_str(), &sb) == 0 && !(sb.st_mode & S_IFDIR)) {
-            ALOGI("cluster_id exists for cpu: %d", i);
             fstream fin;
             fin.open(path2, ios::in);
             string cid;
