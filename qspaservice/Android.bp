@@ -15,3 +15,26 @@ cc_binary{
         "vendor.qti.hardware.qspa-V1-ndk",
    ],
 }
+
+cc_fuzz{
+    name: "vendor.qti.qspa-service.aidl_fuzzer",
+    srcs:[
+        "src/fuzzer.cpp",
+        "src/Qspa.cpp"
+    ],
+    vendor:true,
+
+    shared_libs: [
+        "libbase",
+        "liblog",
+        "libutils",
+        "libcutils",
+        "libbinder",
+        "libbinder_ndk",
+        "vendor.qti.hardware.qspa-V1-ndk",
+   ],
+
+    static_libs: [
+        "libbinder_random_parcel",
+    ],
+}
